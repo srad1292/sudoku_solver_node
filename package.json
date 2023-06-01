@@ -1,0 +1,25 @@
+{
+  "name": "sudoku_solver_node",
+  "version": "1.0.0",
+  "description": "Script for taking in starting state for sudoku puzzle and outputting a solution",
+  "main": "solver.js",
+  "scripts": {
+    "test": "jest ./tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srad1292/sudoku_solver_node.git"
+  },
+  "author": "Sam Radford",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "29.5.0"
+  },
+  "devDependencies": {
+    "@types/jest": "29.5.2"
+  },
+  "bugs": {
+    "url": "https://github.com/srad1292/sudoku_solver_node/issues"
+  },
+  "homepage": "https://github.com/srad1292/sudoku_solver_node#readme"
+}
