@@ -12,7 +12,7 @@ let startingState = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0
 
 const SudokuSolver = {
     startingState: startingState,
-    validateState: (state) => {
+    validateStartingState: (state) => {
         if((!!state && typeof state === 'object' && state.length === 81) === false) { return false; }
         let idx = 0;
         let valid = true;
@@ -28,7 +28,18 @@ const SudokuSolver = {
         return valid;
     },
     validateIsNumber: (value) => (typeof value === 'number' && value >= 0 && value <= 9),
+    validateAgainstRow: (index, state) => {
+        if(state[index] === 0) { return true; }
 
-}
+        let countToCheck = 8-(index%9);
+        let valid = true;
+        for(let numToRight = 1; numToRight<=countToCheck; numToRight++) {
+            if(state[index+numToRight] === state[index]) {
+                valid = false;
+            }
+        }
+        return valid;
+    },
+};
 
 module.exports = SudokuSolver;

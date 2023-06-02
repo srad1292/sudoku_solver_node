@@ -44,26 +44,135 @@ describe("Function: validateIsNumber", () => {
     test("True for something in the middle: 4", () => {
         expect(SudokuSolver.validateIsNumber(4)).toBe(true);
     });
+});
 
+
+describe("Function: validateAgainstRow", () => {
+    test("True when cell value is 0 aka empty", () => {
+        let emptyGrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when cell is only number in grid", () => {
+        let emptyGrid = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when duplicate is not in same row", () => {
+        let emptyGrid = [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at beginning", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start in middle", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(4, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at end", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(8, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at beginning of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(27, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at middle of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(31, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at end of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(35, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at beginning of last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4];
+        expect(SudokuSolver.validateAgainstRow(72, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at middle of a last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4];
+        expect(SudokuSolver.validateAgainstRow(76, emptyGrid)).toBe(true);
+    });
+
+    test("True when every number in row is unique and start at end of a last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4];
+        expect(SudokuSolver.validateAgainstRow(80, emptyGrid)).toBe(true);
+    });
+
+    test("False when duplicate exists in middle and start at beginning", () => {
+        let emptyGrid = [1,2,5,9,7,1,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(0, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists start at middle", () => {
+        let emptyGrid = [1,2,5,9,6,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(4, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists at end - start at middle", () => {
+        let emptyGrid = [1,2,5,9,6,7,3,8,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(4, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists and start at beginning of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,1,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(27, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists and and start at middle of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,7,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(31, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate near the end of a later row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstRow(34, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists and start at beginning of a last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,1,6,3,8,4];
+        expect(SudokuSolver.validateAgainstRow(72, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists and start at middle of last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,7,3,8,4];
+        expect(SudokuSolver.validateAgainstRow(76, emptyGrid)).toBe(false);
+    });
+
+    test("False when duplicate exists start near end of last row", () => {
+        let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,8];
+        expect(SudokuSolver.validateAgainstRow(79, emptyGrid)).toBe(false);
+    });
+
+    
 
 });
 
-describe("Function: validateState", () => {
+describe("Function: validateStartingState", () => {
     test("False for non-array: null", () => {
-        expect(SudokuSolver.validateState(null)).toBe(false);
+        expect(SudokuSolver.validateStartingState(null)).toBe(false);
     });
 
     test("False for empty array", () => {
-        expect(SudokuSolver.validateState([])).toBe(false);
+        expect(SudokuSolver.validateStartingState([])).toBe(false);
     });
 
     test("False for array with less than 81 elements", () => {
-        expect(SudokuSolver.validateState([1,2,3])).toBe(false);
+        expect(SudokuSolver.validateStartingState([1,2,3])).toBe(false);
     });
 
     test("False for array with greater than 81 elements", () => {
         let state = Array.from(Array(82).keys());
-        expect(SudokuSolver.validateState(state)).toBe(false);
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
     });
 
     test("True for state with one non-zero", () => {
@@ -72,6 +181,6 @@ describe("Function: validateState", () => {
             state[idx] = 0;
         }
         state[4] = 7;
-        expect(SudokuSolver.validateState(state)).toBe(true);
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
     });
 });
