@@ -28,13 +28,28 @@ const SudokuSolver = {
         return valid;
     },
     validateIsNumber: (value) => (typeof value === 'number' && value >= 0 && value <= 9),
-    validateAgainstRow: (index, state) => {
+    validateRow: (index, state) => {
+        return SudokuSolver.validateAgainstRowToLeft(index, state) && SudokuSolver.validateAgainstRowToRight(index, state);
+    },
+    validateAgainstRowToRight: (index, state) => {
         if(state[index] === 0) { return true; }
 
         let countToCheck = 8-(index%9);
         let valid = true;
         for(let numToRight = 1; numToRight<=countToCheck; numToRight++) {
             if(state[index+numToRight] === state[index]) {
+                valid = false;
+            }
+        }
+        return valid;
+    },
+    validateAgainstRowToLeft: (index, state) => {
+        if(state[index] === 0) { return true; }
+
+        let countToCheck = index%9;
+        let valid = true;
+        for(let numToLeft = 1; numToLeft<=countToCheck; numToLeft++) {
+            if(state[index-numToLeft] === state[index]) {
                 valid = false;
             }
         }
