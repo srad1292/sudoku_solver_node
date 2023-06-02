@@ -431,6 +431,52 @@ describe("Function: validateAgainstColumnBelow", () => {
         expect(SudokuSolver.validateAgainstColumnBelow(80, grid)).toBe(true);
     });
 
+    test("False when first column has conflict Below starting at top", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(0, grid)).toBe(false);
+    });
+    
+    test("False when first column has conflict Below starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,2,0,0,0,2,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,8,2,0,0,0,9,0,0,0,4];
+        expect(SudokuSolver.validateAgainstColumnBelow(36, grid)).toBe(false);
+    });
+    
+    test("False when first column has conflict starting near bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(63, grid)).toBe(false);
+    });
+    
+    test("False when middle column has conflict starting at top", () => {
+        let grid = [1,0,0,0,1,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,2,0,0,0,4,2,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(4, grid)).toBe(false);
+    });
+    
+    test("False when middle column has conflict starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,7,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,2,0,0,0,4,2,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(40, grid)).toBe(false);
+    });
+    
+    test("False when middle column has conflict starting near bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,2,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,4,2,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(67, grid)).toBe(false);
+    });
+    
+
+    test("False when last column has conflict starting at top", () => {
+        let grid = [1,0,0,0,4,0,0,0,8,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,2,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,4,2,0,0,0,9,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(8, grid)).toBe(false);
+    });
+    
+    test("False when last column has conflict starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,2,0,0,0,8,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,4,2,0,0,0,9,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(44, grid)).toBe(false);
+    });
+    
+    test("False when last column has conflict starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,2,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,8,2,0,0,0,9,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(71, grid)).toBe(false);
+    });
+
 });
 
 describe("Function: validateStartingState", () => {
