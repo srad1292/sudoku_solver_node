@@ -55,6 +55,28 @@ const SudokuSolver = {
         }
         return valid;
     },
+    validateAgainstColumnBelow: (index, state) => {
+        if(state[index] === 0) { return true; }
+
+        let valid = true;
+        for(let below=index+9; below<81; below+=9) {
+            if(state[below] === state[index]) {
+                valid = false;
+            }
+        }
+        return valid;
+    },
+    validateAgainstColumnAbove: (index, state) => {
+        if(state[index] === 0) { return true; }
+
+        let valid = true;
+        for(let above=index-9; above>=0; above-=9) {
+            if(state[above] === state[index]) {
+                valid = false;
+            }
+        }
+        return valid;
+    },
 };
 
 module.exports = SudokuSolver;

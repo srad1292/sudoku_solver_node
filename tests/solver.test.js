@@ -152,9 +152,6 @@ describe("Function: validateAgainstRowToRight", () => {
         let emptyGrid = [1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,5,9,7,6,3,8,8];
         expect(SudokuSolver.validateAgainstRowToRight(79, emptyGrid)).toBe(false);
     });
-
-    
-
 });
 
 describe("Function: validateAgainstRowToLeft", () => {
@@ -269,6 +266,170 @@ describe("Function: validateAgainstRowToLeft", () => {
     });
 
     
+
+});
+
+describe("Function: validateAgainstColumnAbove", () => {
+
+    test("True when first cell value is 0 aka empty", () => {
+        let emptyGrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when first cell in last row value is 0 aka empty", () => {
+        let emptyGrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(72, emptyGrid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at top", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(0, grid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at middle", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(36, grid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(72, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at top", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(4, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(40, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(76, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at top", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnAbove(8, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnAbove(44, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnAbove(80, grid)).toBe(true);
+    });
+
+    test("False when first column has conflict above starting near top", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(9, grid)).toBe(false);
+    });
+
+    test("False when first column has conflict above starting at middle", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(36, grid)).toBe(false);
+    });
+
+    test("False when first column has conflict starting at bottom", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(72, grid)).toBe(false);
+    });
+
+
+    test("False when middle column has conflict starting near top", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,4,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(13, grid)).toBe(false);
+    });
+
+    test("False when middle column has conflict starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,4,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(40, grid)).toBe(false);
+    });
+
+    test("False when middle column has conflict starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,4,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnAbove(76, grid)).toBe(false);
+    });
+
+    test("False when last column has conflict starting near top", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,6,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnAbove(17, grid)).toBe(false);
+    });
+
+    test("False when last column has conflict starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,6,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,6,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnAbove(44, grid)).toBe(false);
+    });
+
+    test("False when last column has conflict starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,5];
+        expect(SudokuSolver.validateAgainstColumnAbove(80, grid)).toBe(false);
+    });
+
+});
+
+describe("Function: validateAgainstColumnBelow", () => {
+
+    test("True when first cell value is 0 aka empty", () => {
+        let emptyGrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(0, emptyGrid)).toBe(true);
+    });
+
+    test("True when first cell in last row value is 0 aka empty", () => {
+        let emptyGrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(72, emptyGrid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at top", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(0, grid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at middle", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(36, grid)).toBe(true);
+    });
+
+    test("True when first column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(72, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at top", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(4, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(40, grid)).toBe(true);
+    });
+
+    test("True when middle column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,0,4,0,0,0,3,0,0,0,0,3,0,0,0,8,0,0,0,0,6,0,0,0,6,0,0,0,0,5,0,0,0,9,0,0,0,0,9,0,0,0,5,0,0,0,0,8,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,7,0,0,0,7,0,0,0,0];
+        expect(SudokuSolver.validateAgainstColumnBelow(76, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at top", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(8, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at middle", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(44, grid)).toBe(true);
+    });
+
+    test("True when last column is unique starting at bottom", () => {
+        let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,9,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,2,0,0,0,2,0,0,0,4,7,0,0,0,7,0,0,0,8];
+        expect(SudokuSolver.validateAgainstColumnBelow(80, grid)).toBe(true);
+    });
 
 });
 
