@@ -945,3 +945,24 @@ describe("Function: validateStartingState", () => {
         expect(SudokuSolver.validateStartingState(state)).toBe(true);
     });
 });
+
+describe("Function: solve", () => {
+    test("Status to be failed when invalid starting state", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,1,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.solve(state);
+        expect(result.status).toBe(SudokuSolver.SolutionStatus.failed);
+    });
+
+    test("Message to be invalid state when invalid starting state", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,1,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.solve(state);
+        expect(result.message).toBe(SudokuSolver.SolutionFailedReason.invalidStart);
+    });
+
+    test("State to be empty array when invalid starting state", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,1,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual([]);
+    });
+
+});

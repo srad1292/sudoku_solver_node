@@ -13,6 +13,49 @@ let startingState = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0
 
 const SudokuSolver = {
     startingState: startingState,
+    SolutionStatus: {
+        failed: 0,
+        succeeded: 1,
+    },
+    SolutionFailedReason: {
+        invalidStart: "Invalid starting state.",
+        noSolutionFound: "Could not find a solution."
+    },
+    solveAndPrint: (state) => {
+      let solution = SudokuSolver.solve(state);
+      if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.invalidStart) {
+          console.log("Sorry, starting state was invalid");
+      } else if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.noSolutionFound) {
+          console.log("Sorry, I could not find a solution");
+      } else if(solution.status === SudokuSolver.SolutionStatus.succeeded && !!solution.state){
+          console.log(JSON.stringify(solution));
+      } else {
+          console.log("I received an unexpected output from solution.");
+          console.log("I was given the following starting state: ");
+          console.log(JSON.stringify(state));
+      }
+    },
+    solve: (state) => {
+        /**
+         * Attempts to solve a given sudoku puzzle. 
+         * Output is an object with
+         *     status: SudokuSolver.SolutionStatus
+         *     message: Empty string on success, SudokuSolver.SolutionFailedReason on failure
+         *     state: [] on failure, Complete grid array on success
+         */
+        let result = {
+            status: SudokuSolver.SolutionStatus.failed,
+            message: SudokuSolver.SolutionFailedReason.invalidStart,
+            state: []
+        };
+
+        let isValidStartingState = SudokuSolver.validateStartingState(state);
+        if(!isValidStartingState) { return result; }
+
+        result.message = SudokuSolver.SolutionFailedReason.noSolutionFound;
+
+        
+    },
     validateStartingState: (state) => {
         if((!!state && typeof state === 'object' && state.length === 81) === false) { return false; }
         let idx = 0;
