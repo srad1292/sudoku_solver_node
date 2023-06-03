@@ -946,6 +946,296 @@ describe("Function: validateStartingState", () => {
     });
 });
 
+describe("Function: getSeenInRow", () => {
+    test("All false when row is empty", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(0, state, actual);
+        let expected = [false,false,false, false,false,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first row that has every number", () => {
+        let state = [6,3,5,4,2,1,8,7,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(0, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first row that has every number while starting at the 5th element", () => {
+        let state = [6,3,5,4,2,1,8,7,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(4, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first row that has only 4 and 5", () => {
+        let state = [0,0,5,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(0, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first row that has only 4 and 5 starting at last element", () => {
+        let state = [0,0,5,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(8, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+
+    test("Returns correctly using third row that has every number", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,3,5,4,2,1,8,7,9 ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(18, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using third row that has every number while starting at the 5th element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,3,5,4,2,1,8,7,9 ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(22, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using third row that has every number while starting at the last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,3,5,4,2,1,8,7,9 ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(26, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last row that has every number", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,5,1,2,3,6,7,8,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(72, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last that has every number while starting at the 5th element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,5,1,2,3,6,7,8,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(76, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last that has every number while starting at the last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,5,1,2,3,6,7,8,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(80, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+});
+
+describe("Function: getSeenInColumn", () => {
+    test("All false when column is empty", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(0, state, actual);
+        let expected = [false,false,false, false,false,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first column that has every number", () => {
+        let state = [3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(0, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first column that has every number while starting at the 5th element", () => {
+        let state = [3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(36, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first column that has only 4 and 5", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(0, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first column that has only 4 and 5 starting at last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(72, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+
+    test("Returns correctly using third column that has every number", () => {
+        let state = [0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(2, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using third column that has every number while starting at the 5th element", () => {
+        let state = [0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(38, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using third column that has every number while starting at the last element", () => {
+        let state = [0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(74, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last column that has every number", () => {
+        let state = [0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(8, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last column that has only 4 and 5", () => {
+        let state = [0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(8, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last column that has every number while starting at the 5th element", () => {
+        let state = [0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(44, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last column that has every number while starting at the last element", () => {
+        let state = [0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,9];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(80, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+});
+
+describe("Function: getSeenInSquare", () => {
+    test("All false when square is empty", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(0, state, actual);
+        let expected = [false,false,false, false,false,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first square that has every number", () => {
+        let state = [1,3,4,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(0, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first square that has every number while starting at the 5th element", () => {
+        let state = [1,3,4,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(10, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first square that has only 4 and 5", () => {
+        let state = [0,0,4,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(0, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using first square that has only 4 and 5 starting at last element", () => {
+        let state = [0,0,4,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(20, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+
+    test("Returns correctly using 5th square that has every number", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4,0,0,0,0,0,0,2,6,5,0,0,0,0,0,0,9,7,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(30, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using 5th square that has every number while starting at 5th element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4,0,0,0,0,0,0,2,6,5,0,0,0,0,0,0,9,7,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(40, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using 5th square that has every number while starting at last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4,0,0,0,0,0,0,2,6,5,0,0,0,0,0,0,9,7,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(50, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last square that has only 4 and 5", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(60, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last square that has only 4 and 5 while starting at last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(80, state, actual);
+        let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last square that has every number", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,3,0,0,0,0,0,0,6,1,9,0,0,0,0,0,0,7,5,8];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(60, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly using last square that has every number while starting at last element", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,3,0,0,0,0,0,0,6,1,9,0,0,0,0,0,0,7,5,8];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(80, state, actual);
+        let expected = [true,true,true, true,true,true, true,true,true];
+        expect(actual).toStrictEqual(expected);
+    });
+});
+
+
 describe("Function: solve", () => {
     test("Status to be failed when invalid starting state", () => {
         let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,1,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];

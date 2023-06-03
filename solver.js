@@ -54,7 +54,7 @@ const SudokuSolver = {
 
         result.message = SudokuSolver.SolutionFailedReason.noSolutionFound;
 
-        
+        let possibleValues = SudokuSolver.buildPossibleValues(state);
     },
     validateStartingState: (state) => {
         if((!!state && typeof state === 'object' && state.length === 81) === false) { return false; }
@@ -155,7 +155,68 @@ const SudokuSolver = {
         // 27*SquareRow + 3*SquareColumn
         return (27*Math.floor(index/27)) + (3*Math.floor(index/3%3));
     },
-    
+    buildPossibleValues: (state) => {
+        let result = [];
+        let seen = [false,false,false, false,false,false, false,false,false];
+
+        // Started writing function and then decided to change to use following steps
+        // Build list of seen in row
+        // Build list of seen in column
+        // Build list of seen in squares
+        // Go through grid, possible equal where row,col,square seen is false for all three
+        
+        // This needs to be changed
+        // for(let idx = 0; idx < state.length; idx++) {
+        //     if(state[idx] !== 0) {
+        //         result.push([]);
+        //     } else {
+        //         seen = [false,false,false, false,false,false, false,false,false];
+        //         // Explicitly use side effects here
+        //         SudokuSolver.getSeenInRow(idx, state, seen);
+        //         SudokuSolver.getSeenInColumn(idx, state, seen);
+        //         SudokuSolver.getSeenInSquare(idx, state, seen);
+
+        //         let possible = [];
+        //         seen.forEach((val, index) => {if(val) { possible.push(index+1)}});
+
+
+        //     }
+        // }
+    },
+    getSeenInRow: (idx, state, seen) => {
+        let iter = 9*Math.floor(idx/9);
+        let end = iter+8;
+        for(iter; iter<=end; iter++) {
+            if(state[iter] !== 0) {
+                seen[state[iter]-1] = true;
+            }
+        }
+    },
+    getSeenInColumn: (idx, state, seen) => {
+        let iter = idx%9;
+        for(iter; iter<=80; iter+=9) {
+            if(state[iter] !== 0) {
+                seen[state[iter]-1] = true;
+            }
+        }
+    },
+    getSeenInSquare: (idx, state, seen) => {
+        let topLeftIdx = SudokuSolver.calculateTopLeftIndex(idx);
+        let rowIdx = 0;
+        let colIdx;
+        let cellIndex = 0;
+        while(rowIdx<3) {
+            colIdx = 0;
+            while(colIdx < 3) {
+                cellIndex = topLeftIdx+colIdx+(9*rowIdx);
+                if(state[cellIndex] !== 0) {
+                    seen[state[cellIndex]-1] = true;
+                }
+                colIdx++;
+            }
+            rowIdx++;
+        }
+    },
 };
 
 
