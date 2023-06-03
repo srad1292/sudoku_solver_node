@@ -77,6 +77,36 @@ const SudokuSolver = {
         }
         return valid;
     },
+    validateAgainstSquare: (index, state) => {
+        if(state[index] === 0) { return true; }
+
+        let topLeftIndex = SudokuSolver.calculateTopLeftIndex(index);
+        let valid = true;
+        let rowIdx = 0;
+        let colIdx;
+        let cellIndex = 0;
+        while(valid && rowIdx<3) {
+            colIdx = 0;
+            while(valid && colIdx < 3) {
+                cellIndex = topLeftIndex+colIdx+(9*rowIdx);
+                if(index !== cellIndex && state[index] === state[cellIndex]) {
+                    valid = false;
+                }
+                colIdx++;
+            }
+            rowIdx++;
+        }
+        return valid;
+    },
+    calculateTopLeftIndex: (index) => {
+        // Squares are 3x3 chunks of overall grid
+        // What square the row is can be calculated using index/9 to get row and then /3 to top/middle/bottom chunk.  Simplify to index/27
+        // Square column can be calculated by num/3%3 to get left/middle/right chunk.
+        // Now that we have a x/y of 0<=x<=2 and 0<=y<=2, we can convert that into the index of the top left of that square by doing
+        // 27*SquareRow + 3*SquareColumn
+        return (27*Math.floor(index/27)) + (3*Math.floor(index/3%3));
+    }
 };
+
 
 module.exports = SudokuSolver;

@@ -476,7 +476,350 @@ describe("Function: validateAgainstColumnBelow", () => {
         let grid = [1,0,0,0,4,0,0,0,6,4,0,0,0,3,0,0,0,5,3,0,0,0,8,0,0,0,3,6,0,0,0,6,0,0,0,9,5,0,0,0,2,0,0,0,1,9,0,0,0,5,0,0,0,7,8,0,0,0,1,0,0,0,2,7,0,0,0,7,0,0,0,8,2,0,0,0,9,0,0,0,8];
         expect(SudokuSolver.validateAgainstColumnBelow(71, grid)).toBe(false);
     });
+});
 
+describe("Function: calculateTopLeftIndex", () => {
+    // Top Left
+    test("0 when given 0", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(0)).toBe(0);
+    });
+
+    test("0 when given 1", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(1)).toBe(0);
+    });
+
+    test("0 when given 10", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(10)).toBe(0);
+    });
+
+    test("0 when given 11", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(11)).toBe(0);
+    });
+
+    test("0 when given 18", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(10)).toBe(0);
+    });
+
+    test("0 when given 20", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(11)).toBe(0);
+    });
+
+    // Top Middle
+    test("3 when given 3", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(3)).toBe(3);
+    });
+    
+    test("3 when given 5", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(5)).toBe(3);
+    });
+    
+    test("3 when given 13", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(13)).toBe(3);
+    });
+    
+    test("3 when given 21", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(21)).toBe(3);
+    });
+    
+    test("3 when given 23", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(23)).toBe(3);
+    });
+
+    // Top Right
+    test("6 when given 6", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(6)).toBe(6);
+    });
+
+    test("6 when given 8", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(8)).toBe(6);
+    });
+
+    test("6 when given 16", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(16)).toBe(6);
+    });
+
+    test("6 when given 24", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(24)).toBe(6);
+    });
+
+    test("6 when given 26", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(26)).toBe(6);
+    });
+
+
+    // Middle Left
+    test("27 when given 27", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(27)).toBe(27);
+    });
+
+    test("27 when given 28", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(28)).toBe(27);
+    });
+
+    test("27 when given 37", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(37)).toBe(27);
+    });
+
+    test("27 when given 38", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(38)).toBe(27);
+    });
+
+    test("27 when given 47", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(47)).toBe(27);
+    });
+
+    // Middle Middle
+    test("30 when given 30", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(30)).toBe(30);
+    });
+
+    test("30 when given 31", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(31)).toBe(30);
+    });
+
+    test("30 when given 41", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(41)).toBe(30);
+    });
+
+    test("30 when given 48", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(48)).toBe(30);
+    });
+
+    test("30 when given 50", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(50)).toBe(30);
+    });
+
+    // Bottom Middle
+    test("57 when given 57", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(57)).toBe(57);
+    });
+
+    test("57 when given 58", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(58)).toBe(57);
+    });
+
+    test("57 when given 67", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(67)).toBe(57);
+    });
+
+    test("57 when given 76", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(76)).toBe(57);
+    });
+
+    test("57 when given 77", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(77)).toBe(57);
+    });
+
+    // Bottom Right
+    test("60 when given 60", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(60)).toBe(60);
+    });
+
+    test("60 when given 61", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(61)).toBe(60);
+    });
+
+    test("60 when given 69", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(69)).toBe(60);
+    });
+
+    test("60 when given 79", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(79)).toBe(60);
+    });
+
+    test("60 when given 80", () => {
+        expect(SudokuSolver.calculateTopLeftIndex(80)).toBe(60);
+    });
+
+});
+
+describe("Function: validateAgainstSquare", () => {
+    test("True when cell is 0", () => {
+        let grid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(10, grid)).toBe(true);
+    });
+    // True - First Square
+    test("True when first square is all unique starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(0, grid)).toBe(true);
+    });
+
+    test("True when first square is all unique starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(2, grid)).toBe(true);
+    });
+
+    test("True when first square is all unique starting at middleRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(11, grid)).toBe(true);
+    });
+
+    test("True when first square is all unique starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(10, grid)).toBe(true);
+    });
+
+    test("True when first square is all unique starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(18, grid)).toBe(true);
+    });
+
+    test("True when first square is all unique starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(20, grid)).toBe(true);
+    });
+    // True - Center Square
+    test("True when center square is all unique starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(30, grid)).toBe(true);
+    });
+
+    test("True when center square is all unique starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(32, grid)).toBe(true);
+    });
+
+    test("True when center square is all unique starting at middleLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(39, grid)).toBe(true);
+    });
+
+    test("True when center square is all unique starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(40, grid)).toBe(true);
+    });
+
+    test("True when center square is all unique starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(48, grid)).toBe(true);
+    });
+
+    test("True when center square is all unique starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(50, grid)).toBe(true);
+    });
+    // True - Bottom Right Square
+    test("True when bottom right square is all unique starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(60, grid)).toBe(true);
+    });
+
+    test("True when bottom right square is all unique starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(62, grid)).toBe(true);
+    });
+
+    test("True when bottom right square is all unique starting at middleLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(69, grid)).toBe(true);
+    });
+
+    test("True when bottom right square is all unique starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(70, grid)).toBe(true);
+    });
+
+    test("True when bottom right square is all unique starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(78, grid)).toBe(true);
+    });
+
+    test("True when bottom right square is all unique starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(80, grid)).toBe(true);
+    });
+
+    // False - First Square
+    test("False when first square has collision starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,1,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(0, grid)).toBe(false);
+    });
+    
+    test("False when first square has collision starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,3,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(2, grid)).toBe(false);
+    });
+    
+    test("False when first square has collision starting at middleRight", () => {
+        let grid = [1,4,7,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(11, grid)).toBe(false);
+    });
+    
+    test("False when first square has collision starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,5,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(10, grid)).toBe(false);
+    });
+    
+    test("False when first square has collision starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,6,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(18, grid)).toBe(false);
+    });
+    
+    test("False when first square has collision starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,8,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(20, grid)).toBe(false);
+    });
+    // False Center Square
+    test("False when center square has collision starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,6,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(30, grid)).toBe(false);
+    });
+    
+    test("False when center square has collision starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,2,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(32, grid)).toBe(false);
+    });
+    
+    test("False when center square has collision starting at middleLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(39, grid)).toBe(false);
+    });
+    
+    test("False when center square has collision starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,3,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(40, grid)).toBe(false);
+    });
+    
+    test("False when center square has collision starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(48, grid)).toBe(false);
+    });
+    
+    test("False when center square has collision starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,5,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateAgainstSquare(50, grid)).toBe(false);
+    });
+
+    // False - Bottom Right Square
+    test("False when bottom right square has a collision starting at topleft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,3,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(60, grid)).toBe(false);
+    });
+
+    test("False when bottom right square has a collision starting at topRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,7,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(62, grid)).toBe(false);
+    });
+
+    test("False when bottom right square has a collision starting at middleLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,8,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(69, grid)).toBe(false);
+    });
+
+    test("False when bottom right square has a collision starting at middleMiddle", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,5];
+        expect(SudokuSolver.validateAgainstSquare(70, grid)).toBe(false);
+    });
+
+    test("False when bottom right square has a collision starting at bottomLeft", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,3,9,7,0,0,0,0,0,0,6,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(78, grid)).toBe(false);
+    });
+
+    test("False when bottom right square has a collision starting at bottomRight", () => {
+        let grid = [1,4,3,0,0,0,0,0,0,2,5,7,0,0,0,0,0,0,6,9,8,0,0,0,0,0,0,0,0,0,6,8,2,0,0,0,0,0,0,4,3,1,0,0,0,0,0,0,9,7,5,0,0,0,0,0,0,0,0,0,2,9,7,0,0,0,0,0,0,8,5,4,0,0,0,0,0,0,6,1,2];
+        expect(SudokuSolver.validateAgainstSquare(80, grid)).toBe(false);
+    });
 });
 
 describe("Function: validateStartingState", () => {
