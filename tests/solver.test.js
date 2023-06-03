@@ -113,6 +113,11 @@ describe("Function: validateAgainstRowToRight", () => {
         expect(SudokuSolver.validateAgainstRowToRight(0, emptyGrid)).toBe(false);
     });
 
+    test("False when duplicate in first row starting near beginning", () => {
+        let state = [0,9,6,4,9,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateAgainstRowToRight(1, state)).toBe(false);
+    });
+
     test("False when duplicate exists start at middle", () => {
         let emptyGrid = [1,2,5,9,6,6,3,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         expect(SudokuSolver.validateAgainstRowToRight(4, emptyGrid)).toBe(false);
@@ -840,12 +845,103 @@ describe("Function: validateStartingState", () => {
         expect(SudokuSolver.validateStartingState(state)).toBe(false);
     });
 
-    test("True for state with one non-zero", () => {
-        let state = [];
-        for(let idx = 0; idx < 81; idx++) {
-            state[idx] = 0;
-        }
-        state[4] = 7;
+    test("False for state with all empty cells", () => {
+        let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False for state with only 16 populated cells", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];        
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in first row", () => {
+        let state = [0,9,6,4,9,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in third row", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,6,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in last row", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,2];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in first column", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,3,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in middle column", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,4,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in last column", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,7,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in top left square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,1,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in top right square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,7,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in middle left square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,9,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in middle middle square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,8,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in bottom middle square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,2,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("False when collision in bottom right square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,5,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(false);
+    });
+
+    test("True for example easy sudoku starting state", () => {
+        let state = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
+    });
+
+    test("True for second example easy sudoku starting state", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
+    });
+
+    test("True for example medium sudoku starting state", () => {
+        let state = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4,0,1,0,0,0,0,0,4,0,0,0,0,0,0,9,3,8,0,0,0,1,4,7,8,0,3,0,0,0,6,5,0,7,5,0,0,8,0,0,0,0,0,0,0,9,5,0,0,3,8];
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
+    });
+
+    test("True for example hard sudoku starting state", () => {
+        let state = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
+    });
+
+    test("True for example expert sudoku starting state", () => {
+        let state = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
+        expect(SudokuSolver.validateStartingState(state)).toBe(true);
+    });
+
+    test("True for example evil sudoku starting state", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
         expect(SudokuSolver.validateStartingState(state)).toBe(true);
     });
 });

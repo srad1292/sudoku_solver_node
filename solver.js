@@ -1,10 +1,11 @@
 // Easy Sudoku
 let startingState = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
+// let startingState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
 // Medium Sudoku
 // let startingState = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4,0,1,0,0,0,0,0,4,0,0,0,0,0,0,9,3,8,0,0,0,1,4,7,8,0,3,0,0,0,6,5,0,7,5,0,0,8,0,0,0,0,0,0,0,9,5,0,0,3,8];
 // Hard Sudoku
 //let startingState = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
-// Export Sudoku
+// Expert Sudoku
 // let startingState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
 // Evil Sudoku
 // let startingState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
@@ -16,16 +17,18 @@ const SudokuSolver = {
         if((!!state && typeof state === 'object' && state.length === 81) === false) { return false; }
         let idx = 0;
         let valid = true;
-        
+        // Quick google search suggests, minimum number of cells with values to be solveable to be 17
+        let cellsWithValuesCount = 0;
+
         while(idx < state.length && valid === true) {
-            // Pass - All numbers between 0-9
-            valid = SudokuSolver.validateIsNumber(state[idx]);
-            // No row collisions
-            // No column collisions
-            // No square collisions
+            // Going from top left to bottom right, so only need to check to right and below.  
+            // Could probably also avoid a in-square checks, but fine for now.
+            if(state[idx] !== 0) { cellsWithValuesCount++; }
+            valid = SudokuSolver.validateIsNumber(state[idx]) && SudokuSolver.validateAgainstRowToRight(idx, state) && 
+                SudokuSolver.validateAgainstColumnBelow(idx, state) && SudokuSolver.validateAgainstSquare(idx, state);            
             idx++;
         } 
-        return valid;
+        return valid && cellsWithValuesCount>=17;
     },
     validateIsNumber: (value) => (typeof value === 'number' && value >= 0 && value <= 9),
     validateRow: (index, state) => {
@@ -54,6 +57,9 @@ const SudokuSolver = {
             }
         }
         return valid;
+    },
+    validateColumn: (index, state) => {
+        return SudokuSolver.validateAgainstColumnAbove(index, state) && SudokuSolver.validateAgainstColumnBelow(index, state);
     },
     validateAgainstColumnBelow: (index, state) => {
         if(state[index] === 0) { return true; }
@@ -105,7 +111,8 @@ const SudokuSolver = {
         // Now that we have a x/y of 0<=x<=2 and 0<=y<=2, we can convert that into the index of the top left of that square by doing
         // 27*SquareRow + 3*SquareColumn
         return (27*Math.floor(index/27)) + (3*Math.floor(index/3%3));
-    }
+    },
+    
 };
 
 
