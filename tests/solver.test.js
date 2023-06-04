@@ -987,6 +987,14 @@ describe("Function: getSeenInRow", () => {
         expect(actual).toStrictEqual(expected);
     });
 
+    test("Returns correctly for second row", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInRow(9, state, actual);
+        let expected = [true,false,false, false,false,false, false,false,true];
+        expect(actual).toStrictEqual(expected);
+    });
+
 
     test("Returns correctly using third row that has every number", () => {
         let state = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,3,5,4,2,1,8,7,9 ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -1103,6 +1111,14 @@ describe("Function: getSeenInColumn", () => {
         expect(actual).toStrictEqual(expected);
     });
 
+    test("Returns correctly for middle column", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInColumn(4, state, actual);
+        let expected = [false,true,false, false,false,true, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
     test("Returns correctly using last column that has every number", () => {
         let state = [0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,9];
         let actual = [false,false,false, false,false,false, false,false,false];
@@ -1174,6 +1190,14 @@ describe("Function: getSeenInSquare", () => {
         let actual = [false,false,false, false,false,false, false,false,false];
         SudokuSolver.getSeenInSquare(20, state, actual);
         let expected = [false,false,false, true,true,false, false,false,false];
+        expect(actual).toStrictEqual(expected);
+    });
+
+    test("Returns correctly for top middle square", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let actual = [false,false,false, false,false,false, false,false,false];
+        SudokuSolver.getSeenInSquare(4, state, actual);
+        let expected = [false,true,false, true,false,true, false,false,false];
         expect(actual).toStrictEqual(expected);
     });
 
@@ -1275,6 +1299,101 @@ describe("Function: buildPossibleValues", () => {
         let result = SudokuSolver.buildPossibleValues(state);
         expect(result[40]).toStrictEqual([9]);
     });
+
+    test("Cell matches in bottom row, middle column, middle square when only a single possible value exists", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,0,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[76]).toStrictEqual([1]);
+    });
+
+    test("Cell matches in bottom row, middle column, middle square when only a single possible value exists", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,0,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[76]).toStrictEqual([1]);
+    });
+
+    test("Cell matches in bottom row, middle column, middle square when only a single possible value exists", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[80]).toStrictEqual([5]);
+    });
+
+    test("Cell matches in top row, first column, first square, when multiple values exist", () => {
+        let state = [0,0,0,0,0,0,0,8,9,0,0,6,7,8,9,1,2,3,0,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[0]).toStrictEqual([1,4,7]);
+    });
+
+    test("Cell matches in top row, middle column, second square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[4]).toStrictEqual([1,3,5,8]);
+    });
+
+    test("Cell matches in top row, 8th column, third square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[7]).toStrictEqual([1,5]);
+    });
+
+    test("Cell matches in second row, middle column, second square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[13]).toStrictEqual([3,5,7,8]);
+    });
+
+    test("Cell matches in second row, seventh column, third square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[15]).toStrictEqual([2,3,4,6,8]);
+    });
+
+    test("Cell matches in third row, second column, first square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[19]).toStrictEqual([4,5,7]);
+    });
+
+    test("Cell matches in fourth row, third column, fourth square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[29]).toStrictEqual([5,7]);
+    });
+
+    test("Cell matches in fourth row, sixth column, fifth square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[32]).toStrictEqual([1,5,6,9]);
+    });
+
+    test("Cell matches in fifth row, last column, sixth square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[44]).toStrictEqual([1,5,6]);
+    });
+
+
+    test("Cell matches in seventh row, third column, seventh square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[56]).toStrictEqual([1,2,3,5,7]);
+    });
+
+
+    test("Cell matches in eigth row, fourth column, eigth square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[66]).toStrictEqual([1,3,6,9]);
+    });
+
+
+    test("Cell matches in ninth row, last column, ninth square, when multiple values exist", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,0,4,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[80]).toStrictEqual([1,6,9]);
+    });
+
+    
 
 });
 
