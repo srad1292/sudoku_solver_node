@@ -19,21 +19,26 @@ const SudokuSolver = {
     },
     SolutionFailedReason: {
         invalidStart: "Invalid starting state.",
-        noSolutionFound: "Could not find a solution."
+        noSolutionFound: "Could not find a solution.",
+        solutionNotValid: "An invalid solution was found.  This must be a bug."
     },
     solveAndPrint: (state) => {
-      let solution = SudokuSolver.solve(state);
-      if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.invalidStart) {
-          console.log("Sorry, starting state was invalid");
-      } else if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.noSolutionFound) {
-          console.log("Sorry, I could not find a solution");
-      } else if(solution.status === SudokuSolver.SolutionStatus.succeeded && !!solution.state){
-          console.log(JSON.stringify(solution));
-      } else {
-          console.log("I received an unexpected output from solution.");
-          console.log("I was given the following starting state: ");
-          console.log(JSON.stringify(state));
-      }
+        let solution = SudokuSolver.solve(state);
+        if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.invalidStart) {
+            console.log("Sorry, starting state was invalid");
+        } else if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.noSolutionFound) {
+            console.log("Sorry, I could not find a solution");
+        } else if(solution.status === SudokuSolver.SolutionStatus.failed && solution.message === SudokuSolver.SolutionFailedReason.solutionNotValid) {
+            console.log(this.SolutionFailedReason.solutionNotValid);
+            console.log("I was given the following starting state: ");
+            console.log(JSON.stringify(state));
+        } else if(solution.status === SudokuSolver.SolutionStatus.succeeded && !!solution.state){
+            console.log(JSON.stringify(solution));
+        } else {
+            console.log("I received an unexpected output from solution.");
+            console.log("I was given the following starting state: ");
+            console.log(JSON.stringify(state));
+        }
     },
     solve: (state) => {
         /**
@@ -55,6 +60,43 @@ const SudokuSolver = {
         result.message = SudokuSolver.SolutionFailedReason.noSolutionFound;
 
         let possibleValues = SudokuSolver.buildPossibleValues(state);
+        let solution = SudokuSolver.takeStep(0, [...state], possibleValues, []);
+
+        let solved = SudokuSolver.checkSolved(state, solution);
+        if(solved) {
+            result.status = SudokuSolver.SolutionStatus.succeeded,
+            result.message = "",
+            result.state = solution;
+        } else {
+            result.message = SudokuSolver.SolutionFailedReason.solutionNotValid,
+            result.state = solution;
+        }
+    },
+    takeStep: (index, state, possible, solution) => {
+        if(index >= state.length) {
+            return solution;
+        }
+        if(state[index] !== 0) { 
+            solution.push(state[index]);
+            return SudokuSolver.takeStep(index+1,state,possible,solution);
+        }
+
+        return solution;
+    },
+    checkSolved: (state, solution) => {
+        let matchesOriginalState = state.length === solution.length;
+        if(matchesOriginalState === false) { return false; }
+
+        for(let idx = 0; idx < state.length; idx++) {
+            if(state[idx] !== 0 && state[idx] !== solution[idx]) {
+                matchesOriginalState = false;
+            }
+        }
+        
+        if(matchesOriginalState === false) { return false; }
+
+        return SudokuSolver.validateStartingState(solution);
+
     },
     validateStartingState: (state) => {
         if((!!state && typeof state === 'object' && state.length === 81) === false) { return false; }
@@ -164,7 +206,7 @@ const SudokuSolver = {
         // Build list of seen in squares
         // Go through grid, possible equal where row,col,square seen is false for all three
         let emptySeen = [false,false,false, false,false,false, false,false,false];
-        /**  { 
+        /**  visited = { 
           1: {
         *       visitedRow: bool
         *       visitedColumn: bool
@@ -178,7 +220,6 @@ const SudokuSolver = {
         */ 
         let visited = {};
 
-        // This needs to be changed
         let row; 
         let column;
         let square;
