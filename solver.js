@@ -157,31 +157,71 @@ const SudokuSolver = {
     },
     buildPossibleValues: (state) => {
         let result = [];
-        let seen = [false,false,false, false,false,false, false,false,false];
 
         // Started writing function and then decided to change to use following steps
         // Build list of seen in row
         // Build list of seen in column
         // Build list of seen in squares
         // Go through grid, possible equal where row,col,square seen is false for all three
-        
+        let emptySeen = [false,false,false, false,false,false, false,false,false];
+        /**  { 
+          1: {
+        *       visitedRow: bool
+        *       visitedColumn: bool
+        *       visitedSquare: bool
+        *       rowSeen: []
+        *       columnSeen: []
+        *       squareSeen: []
+        *    }
+        *
+        * }
+        */ 
+        let visited = {};
+
         // This needs to be changed
-        // for(let idx = 0; idx < state.length; idx++) {
-        //     if(state[idx] !== 0) {
-        //         result.push([]);
-        //     } else {
-        //         seen = [false,false,false, false,false,false, false,false,false];
-        //         // Explicitly use side effects here
-        //         SudokuSolver.getSeenInRow(idx, state, seen);
-        //         SudokuSolver.getSeenInColumn(idx, state, seen);
-        //         SudokuSolver.getSeenInSquare(idx, state, seen);
+        let row; 
+        let column;
+        let square;
+        let topLeft;
+        let resultForCell = [];
+        for(let idx = 0; idx < state.length; idx++) {
+            if(state[idx] !== 0) { result.push([]); continue; }
+            resultForCell = [];
+            row = Math.floor(idx/9);
+            column = idx%9;
+            topLeft = SudokuSolver.calculateTopLeftIndex(idx);
+            square = Math.floor(topLeft/9) + Math.floor(topLeft/3%3);
+            // Build visited cache for current row
+            if(!visited[row]) {visited[row] = {};} 
+            if(!visited[row].visitedRow) {
+                visited[row].visitedRow = true;
+                visited[row].rowSeen = SudokuSolver.getSeenInRow(idx, state, [...emptySeen]);
+            }
+            // Build visited cache for current column
+            if(!visited[column]) {visited[column] = {};} 
+            if(!visited[column].visitedColumn) {
+                visited[column].visitedColumn = true;
+                visited[column].columnSeen = SudokuSolver.getSeenInColumn(idx, state, [...emptySeen]);
+            }
+            // Build visited cache for current square
+            if(!visited[square]) {visited[square] = {};} 
+            if(!visited[square].visitedSquare) {
+                visited[square].visitedSquare = true;
+                visited[square].squareSeen = SudokuSolver.getSeenInSquare(idx, state, [...emptySeen]);
+            }
+            // Any number not seen in row/column/square is a possible value for this cell
+            for(let num=0; num<9; num++) {
+                if(visited[row].rowSeen[num] === false && 
+                    visited[column].columnSeen[num] === false && 
+                    visited[square].squareSeen[num] === false
+                ) {
+                    resultForCell.push(num+1);
+                }
+            }
 
-        //         let possible = [];
-        //         seen.forEach((val, index) => {if(val) { possible.push(index+1)}});
-
-
-        //     }
-        // }
+            result.push(resultForCell);
+        }
+        return result;
     },
     getSeenInRow: (idx, state, seen) => {
         let iter = 9*Math.floor(idx/9);
@@ -191,6 +231,7 @@ const SudokuSolver = {
                 seen[state[iter]-1] = true;
             }
         }
+        return seen;
     },
     getSeenInColumn: (idx, state, seen) => {
         let iter = idx%9;
@@ -199,6 +240,7 @@ const SudokuSolver = {
                 seen[state[iter]-1] = true;
             }
         }
+        return seen;
     },
     getSeenInSquare: (idx, state, seen) => {
         let topLeftIdx = SudokuSolver.calculateTopLeftIndex(idx);
@@ -216,6 +258,7 @@ const SudokuSolver = {
             }
             rowIdx++;
         }
+        return seen;
     },
 };
 

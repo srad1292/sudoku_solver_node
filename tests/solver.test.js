@@ -1235,6 +1235,49 @@ describe("Function: getSeenInSquare", () => {
     });
 });
 
+describe("Function: buildPossibleValues", () => {
+    test("Result length matches state length when grid is full", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        expect(SudokuSolver.buildPossibleValues(state)).toHaveLength(state.length);
+    });
+    
+    test("Cell is empty array when grid is full", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let possibleGrid = SudokuSolver.buildPossibleValues(state);
+        expect(possibleGrid[0]).toStrictEqual([]);
+    });
+
+    test("Result length matches state length when grid is not full", () => {
+        let state = [1,0,3,0,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        expect(SudokuSolver.buildPossibleValues(state)).toHaveLength(state.length);
+    });
+
+    test("Cell matches in top row, second column, first square when only a single possible value exists", () => {
+        let state = [1,0,3,0,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[1]).toStrictEqual([2]);
+    });
+
+    test("Cell matches in top row, fourth column, second square when only a single possible value exists", () => {
+        let state = [1,0,3,0,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[3]).toStrictEqual([4]);
+    });
+
+    test("Cell matches in top row, last column, third square when only a single possible value exists", () => {
+        let state = [1,2,3,4,5,6,7,8,0,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,9,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[8]).toStrictEqual([9]);
+    });
+
+    test("Cell matches in middle row, middle column, middle square when only a single possible value exists", () => {
+        let state = [1,2,3,4,5,6,7,8,9,4,5,6,7,8,9,1,2,3,7,8,9,1,2,3,4,5,6,2,3,1,5,6,4,8,9,7,5,6,4,8,0,7,2,3,1,8,9,7,2,3,1,5,6,4,3,1,2,6,4,5,9,7,8,6,4,5,9,7,8,3,1,2,9,7,8,3,1,2,6,4,5];
+        let result = SudokuSolver.buildPossibleValues(state);
+        expect(result[40]).toStrictEqual([9]);
+    });
+
+});
+
 
 describe("Function: solve", () => {
     test("Status to be failed when invalid starting state", () => {
