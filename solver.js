@@ -1,27 +1,30 @@
+// @ts-nocheck
 // Easy Sudoku
-let startingState = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
+let easyStateOne = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
 // let solvedState = [9,3,1,8,6,5,4,2,7,6,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,8];
 
-// let startingState: [4,8,9,0,0,5,0,0,0,7,0,2,0,4,6,8,3,0,0,0,6,0,0,0,0,4,9,8,7,3,0,6,0,0,0,5,0,2,0,0,8,1,0,6,3,1,0,5,4,7,0,9,0,8,0,0,0,0,0,0,0,8,0,0,3,0,6,0,0,1,5,7,0,0,0,8,1,0,0,0,6]
-// let solvedState: [4,8,9,1,3,5,6,7,2,7,5,2,9,4,6,8,3,1,3,1,6,7,2,8,5,4,9,8,7,3,2,6,9,4,1,5,9,2,4,5,8,1,7,6,3,1,6,5,4,7,3,9,2,8,6,9,1,3,5,7,2,8,4,2,3,8,6,9,4,1,5,7,5,4,7,8,1,2,3,9,6]
+let easyStateTwo = [4,8,9,0,0,5,0,0,0,7,0,2,0,4,6,8,3,0,0,0,6,0,0,0,0,4,9,8,7,3,0,6,0,0,0,5,0,2,0,0,8,1,0,6,3,1,0,5,4,7,0,9,0,8,0,0,0,0,0,0,0,8,0,0,3,0,6,0,0,1,5,7,0,0,0,8,1,0,0,0,6];
+// let solvedState = [4,8,9,1,3,5,6,7,2,7,5,2,9,4,6,8,3,1,3,1,6,7,2,8,5,4,9,8,7,3,2,6,9,4,1,5,9,2,4,5,8,1,7,6,3,1,6,5,4,7,3,9,2,8,6,9,1,3,5,7,2,8,4,2,3,8,6,9,4,1,5,7,5,4,7,8,1,2,3,9,6];
 
-// let startingState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+let easyStateThree = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
 
 // Medium Sudoku
-// let startingState = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4,0,1,0,0,0,0,0,4,0,0,0,0,0,0,9,3,8,0,0,0,1,4,7,8,0,3,0,0,0,6,5,0,7,5,0,0,8,0,0,0,0,0,0,0,9,5,0,0,3,8];
+let mediumState = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4,0,1,0,0,0,0,0,4,0,0,0,0,0,0,9,3,8,0,0,0,1,4,7,8,0,3,0,0,0,6,5,0,7,5,0,0,8,0,0,0,0,0,0,0,9,5,0,0,3,8];
 // Hard Sudoku
-//let startingState = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
+let hardState = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
 // Expert Sudoku
-// let startingState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
+let expectState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
 // Evil Sudoku
-// let startingState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+let evilState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
 
+let startingState = [...hardState];
 
 const SudokuSolver = {
     startingState: startingState,
+    // pushedToStateCount: 0,
     SolutionStatus: {
-        failed: 0,
-        succeeded: 1,
+        failed: "Failed",
+        succeeded: "Succeeded",
     },
     SolutionFailedReason: {
         invalidStart: "Invalid starting state.",
@@ -77,29 +80,35 @@ const SudokuSolver = {
             result.message = SudokuSolver.SolutionFailedReason.solutionNotValid,
             result.state = solution;
         }
+
+        return result;
     },
     takeStep: (index, state, possible, solution) => {
         if(index >= state.length) {
             return solution;
         }
-        if(state[index] !== 0) { 
+        if(state[index] !== 0 && (solution.length <= index || solution[index] === 0)) { 
             solution.push(state[index]);
             return SudokuSolver.takeStep(index+1,state,possible,solution);
+        } else if(state[index] !== 0) {
+            solution[index] = state[index];
+            return SudokuSolver.takeStep(index+1, state, possible, solution);
         }
 
         let possibleForIndex = [...possible[index]];
 
-        for(let pvIdx = 0; possibleForIndex.length; pvIdx++) {
+        for(let pvIdx = 0; pvIdx < possibleForIndex.length; pvIdx++) {
             // Go through possible values
             // If possible values is empty, this is not the solution
             // Set solution index to current possible value
-            if(pvIdx === 0) {
-                state.push(possibleForIndex[pvIdx]);
+            if(pvIdx === 0 && solution.length <= index) {
+                SudokuSolver.pushedToStateCount+=1;
+                solution.push(possibleForIndex[pvIdx]);
             } else {
-                state[index] = possibleForIndex[pvIdx];
+                solution[index] = possibleForIndex[pvIdx];
             }
             // Remove value from all other possible in row/column/square -> cache these
-            let cellsWherePossibleRemoved = [];
+            let cellsWherePossibleRemoved = SudokuSolver.findAndRemoveFromPossible(index,possibleForIndex[pvIdx], possible);
             SudokuSolver.takeStep(index+1,state,possible,solution);
             if(solution.length === state.length) {
                 return solution;
@@ -118,12 +127,14 @@ const SudokuSolver = {
     findAndRemoveFromPossible(index, value, possible) {
         let cellsWhereSeen = [];
         let rowIter = 9 * Math.floor(index/9);
+        let endOfRow = rowIter+9;
         let startingSquare = SudokuSolver.calculateTopLeftIndex(index);
         let colIter = index%9;
         
         let foundIdx = -1;
-        for(rowIter; rowIter<9; rowIter++) {
+        for(rowIter; rowIter < endOfRow; rowIter++) {
             foundIdx = possible[rowIter].findIndex((pv) => pv === value);
+            // console.log("Row iter: " + rowIter + " Found? " + foundIdx);
             if(foundIdx >= 0) {
                 cellsWhereSeen.push(rowIter);
                 possible[rowIter].splice(foundIdx, 1);
@@ -383,9 +394,9 @@ const SudokuSolver = {
     },
 };
 
-// let testState = [4,8,9,1,3,5,6,7,2,7,5,2,9,4,6,0,3,1,3,1,6,7,2,0,5,4,9,8,7,3,2,0,0,0,0,0,9,2,4,0,0,0,0,0,0,1,6,5,4,7,0,0,0,0,6,9,1,3,0,7,2,0,0,2,3,0,6,9,4,1,0,0,5,4,7,0,1,2,3,9,6];
-// let possibleValues = SudokuSolver.buildPossibleValues(testState);
-// console.log(possibleValues);
 
+// let testState = [4,8,9,0,0,5,0,0,0,7,0,2,0,4,6,8,3,0,0,0,6,0,0,0,0,4,9,8,7,3,0,6,0,0,0,5,0,2,0,0,8,1,0,6,3,1,0,5,4,7,0,9,0,8,0,0,0,0,0,0,0,8,0,0,3,0,6,0,0,1,5,7,0,0,0,8,1,0,0,0,6];
+// console.log(SudokuSolver.buildPossibleValues(startingState));
+// SudokuSolver.solveAndPrint(startingState);
 
 module.exports = SudokuSolver;
