@@ -1485,7 +1485,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
     
-    // Test returns solution when last square is all that's left to populate starting at last square
     test("Returns solution when last square is all that is left, starting at last square", () => {
 
         let startingState = [9,3,1,8,6,5,4,2,7,6,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,0];
@@ -1507,7 +1506,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
-    // Test returns solution when last square is all that's left to populate starting at first square
     test("Returns solution when last square is all that is left, starting at last square", () => {
 
         let startingState = [9,3,1,8,6,5,4,2,7,6,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,0];
@@ -1529,7 +1527,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
-    // Test returns solution when next to last square is all that's left to populate
     test("Returns solution when next to last square is all that is left, starting at beginning", () => {
 
         let startingState = [9,3,1,8,6,5,4,2,7,6,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,0,8];
@@ -1551,7 +1548,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
-    // Test returns solution when two squares remain to be solved
     test("Returns solution when two squares remain to be solved", () => {
 
         let startingState = [9,3,1,8,6,5,4,2,0,0,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,8];
@@ -1573,7 +1569,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
-    // Test returns solution when six squares remain to be solved
     test("Returns solution when six squares remain to be solved", () => {
         let startingState = [9,3,1,8,6,5,4,2,0,0,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,0,0,6,2,1,5,8,3,4,9,8,1,9,3,0,4,2,5,6,4,9,7,5,8,6,1,3,0,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,8];
         let workingSolution = [];
@@ -1594,7 +1589,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
-    // Test returns solution when ten squares remain to be solved
     test("Returns solution when ten squares remain to be solved", () => {
         let startingState = [9,3,1,8,6,5,4,2,0,0,7,8,2,4,3,9,0,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,0,0,6,2,1,5,8,3,4,9,8,1,9,3,0,4,2,5,6,4,9,0,5,8,6,1,3,0,5,8,3,9,1,2,7,6,4,1,2,6,4,0,7,5,0,8];
         let workingSolution = [];
@@ -1615,7 +1609,6 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
     
-    // Test returns solution when 32 squares remain to be solved
     test("Returns solution when 32 squares remain to be solved", () => {
         let startingState = [9,3,1,8,6,5,0,0,0,6,7,8,2,4,3,9,1,5,0,0,0,0,0,0,6,8,3,3,5,4,6,0,9,8,7,0,0,6,2,1,0,8,0,0,9,0,0,0,3,7,4,2,5,0,4,0,7,5,8,6,1,3,2,5,8,0,9,1,2,7,6,4,1,0,0,0,0,0,5,9,8];
         let workingSolution = [];
@@ -1642,7 +1635,6 @@ describe("Function: takeStep", () => {
     });
 
 
-    // Test returns solution from easy starting state
     test("Returns solution when starting from easy starting state", () => {
         let startingState = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
         let workingSolution = [];
@@ -1789,6 +1781,202 @@ describe("Function: takeStep", () => {
         expect(actualSolvedState).toStrictEqual(expectedSolvedState);
     });
 
+    test("Returns solution for hard puzzle", () => {
+        let startingState = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
+        let possible = [
+            [],
+            [ 2, 3, 4 ],
+            [ 2, 3, 4 ],
+            [],
+            [ 2, 3, 8 ],
+            [ 2, 3, 6, 8 ],
+            [],
+            [ 4 ],
+            [],
+            [ 3, 4, 5, 7, 9 ],
+            [ 3, 4, 5, 7, 9 ],
+            [],
+            [ 1, 3, 4, 7 ],
+            [ 1, 3 ],
+            [ 3, 6, 7 ],
+            [ 1, 3, 5, 6 ],
+            [ 1, 4, 5 ],
+            [],
+            [ 2, 3, 4, 5, 7 ],
+            [],
+            [ 2, 3, 4, 5 ],
+            [],
+            [ 1, 2, 3, 8 ],
+            [ 2, 3, 7, 8 ],
+            [ 1, 3, 5, 8 ],
+            [ 1, 4, 5 ],
+            [ 3, 4, 5, 8 ],
+            [ 3, 5, 8, 9 ],
+            [],
+            [ 3, 5, 9 ],
+            [],
+            [],
+            [ 3, 5, 7, 8 ],
+            [ 3, 5, 8, 9 ],
+            [],
+            [ 3, 5, 7, 8 ],
+            [ 2, 3, 4, 5, 8, 9 ],
+            [ 2, 3, 4, 5, 8, 9 ],
+            [],
+            [ 3, 8 ],
+            [],
+            [ 3, 5, 8 ],
+            [ 1, 2, 3, 5, 8, 9 ],
+            [ 1, 2, 4, 5, 9 ],
+            [ 3, 4, 5, 8 ],
+            [],
+            [ 2, 3, 4, 5, 8 ],
+            [ 2, 3, 4, 5 ],
+            [ 3, 7, 8 ],
+            [],
+            [],
+            [ 2, 3, 5, 8 ],
+            [ 2, 4, 5, 7 ],
+            [ 3, 4, 5, 7, 8 ],
+            [ 2, 5, 7, 8 ],
+            [ 2, 5, 7, 8 ],
+            [ 1, 2, 5 ],
+            [],
+            [ 1, 2, 5, 8 ],
+            [],
+            [],
+            [],
+            [ 5, 7 ],
+            [ 2, 3, 5, 9 ],
+            [ 2, 3, 5, 9 ],
+            [ 2, 3, 5, 6, 9 ],
+            [ 3 ],
+            [],
+            [],
+            [ 2, 5, 6, 9 ],
+            [],
+            [],
+            [
+              2, 3, 4, 5,
+              7, 8, 9
+            ],
+            [
+              2, 3, 4, 5,
+              7, 8, 9
+            ],
+            [
+              1, 2, 3, 4,
+              5, 6, 9
+            ],
+            [ 1, 3, 8 ],
+            [ 1, 2, 3, 5, 8 ],
+            [ 2, 3, 5, 8 ],
+            [ 2, 5, 6, 9 ],
+            [ 2, 5, 7, 9 ],
+            [ 5, 6, 7 ]
+        ];
+        
+        let expectedSolvedState = [1,3,2,5,8,6,7,4,9,5,9,8,4,3,7,6,1,2,7,6,4,9,1,2,3,5,8,9,1,5,2,4,3,8,6,7,4,2,7,8,6,5,1,9,3,6,8,3,7,9,1,5,2,4,8,7,1,6,2,9,4,3,5,2,5,6,3,7,4,9,8,1,3,4,9,1,5,8,2,7,6];
+        let actualSolvedState = SudokuSolver.takeStep(0, startingState, possible, []);
+        expect(actualSolvedState).toStrictEqual(expectedSolvedState);
+    });
+
+    test("Returns solution for expert puzzle", () => {
+        let startingState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
+        let possible = [
+            [],
+            [],
+            [ 1, 4, 7 ],
+            [ 2, 6 ],
+            [ 6, 7 ],
+            [ 2, 6, 7 ],
+            [ 1, 2, 6, 7, 9 ],
+            [ 1, 4, 7, 9 ],
+            [],
+            [ 2, 6, 7, 8 ],
+            [ 2, 4, 7, 8 ],
+            [],
+            [ 2, 3, 5, 6, 8 ],
+            [ 3, 5, 6, 7, 8 ],
+            [],
+            [ 2, 3, 6, 7 ],
+            [ 3, 4, 5, 7 ],
+            [ 2, 5, 6, 7 ],
+            [ 2, 6, 7, 8 ],
+            [ 1, 2, 7, 8 ],
+            [ 1, 7, 8 ],
+            [ 2, 3, 5, 6, 8 ],
+            [],
+            [],
+            [ 1, 2, 3, 6, 7 ],
+            [ 1, 3, 5, 7 ],
+            [ 1, 2, 5, 6, 7 ],
+            [],
+            [],
+            [],
+            [ 1, 5 ],
+            [ 1, 5, 7 ],
+            [ 5, 7 ],
+            [],
+            [],
+            [],
+            [ 2, 7, 8 ],
+            [ 1, 2, 5, 7, 8 ],
+            [ 1, 5, 7, 8 ],
+            [
+              1, 2, 3, 5,
+              6, 8, 9
+            ],
+            [
+              1, 3, 5, 6,
+              7, 8, 9
+            ],
+            [ 2, 3, 5, 6, 7, 8 ],
+            [ 1, 7, 9 ],
+            [ 1, 5, 7, 9 ],
+            [],
+            [ 2, 7, 8 ],
+            [ 1, 2, 5, 7, 8 ],
+            [],
+            [ 1, 2, 4, 5, 8, 9 ],
+            [ 1, 5, 7, 8, 9 ],
+            [ 2, 4, 5, 7, 8 ],
+            [ 1, 7, 9 ],
+            [],
+            [ 1, 5, 7, 9 ],
+            [],
+            [ 5, 8 ],
+            [ 5, 8 ],
+            [],
+            [ 3, 5, 6, 8, 9 ],
+            [ 3, 5, 6, 8 ],
+            [],
+            [ 3, 8, 9 ],
+            [ 2, 6, 9 ],
+            [ 3, 7, 8, 9 ],
+            [ 4, 7, 8 ],
+            [ 4, 7, 8 ],
+            [ 1, 3, 4, 6, 8, 9 ],
+            [],
+            [ 3, 4, 6, 8 ],
+            [],
+            [ 1, 3, 7, 8, 9 ],
+            [ 1, 6, 7, 9 ],
+            [ 3, 7, 8, 9 ],
+            [],
+            [],
+            [ 1, 3, 4, 5, 8, 9 ],
+            [ 1, 3, 5, 8, 9 ],
+            [ 3, 4, 5, 8 ],
+            [ 1, 3, 7, 9 ],
+            [ 1, 3, 7, 8, 9 ],
+            [ 1, 7, 9 ]
+          ];
+        let expectedSolvedState = [5,3,1,6,7,2,9,4,8,6,4,9,8,3,1,2,7,5,8,2,7,5,4,9,6,3,1,4,9,6,1,5,7,8,2,3,2,1,8,3,9,6,7,5,4,7,5,3,2,8,4,1,6,9,1,8,5,7,6,3,4,9,2,3,7,4,9,2,8,5,1,6,9,6,2,4,1,5,3,8,7];
+        let actualSolvedState = SudokuSolver.takeStep(0, startingState, possible, []);
+        expect(actualSolvedState).toStrictEqual(expectedSolvedState);
+    });
+
     test("Returns solution for evil puzzle", () => {
         let startingState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
         let possible = [
@@ -1827,7 +2015,6 @@ describe("Function: takeStep", () => {
     });
 
 
-    [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0]
 });
 
 
@@ -1850,4 +2037,44 @@ describe("Function: solve", () => {
         expect(result.state).toStrictEqual([]);
     });
 
+    test("Status to be succeeded when solution found", () => {
+        let state = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
+        let result = SudokuSolver.solve(state);
+        expect(result.status).toStrictEqual(SudokuSolver.SolutionStatus.succeeded);
+    });
+
+    test("Solution to be returned when found for easy puzzle", () => {
+        let state = [0,0,1,8,0,0,0,0,0,6,7,0,2,0,3,0,1,0,2,0,5,7,0,0,6,0,3,3,5,0,6,2,0,8,0,0,7,6,2,0,5,8,3,0,0,0,0,0,0,0,4,0,5,0,0,9,0,5,8,6,0,0,0,5,0,0,9,0,0,7,0,0,0,2,6,4,3,0,5,9,0];
+        let expectedSolvedState = [9,3,1,8,6,5,4,2,7,6,7,8,2,4,3,9,1,5,2,4,5,7,9,1,6,8,3,3,5,4,6,2,9,8,7,1,7,6,2,1,5,8,3,4,9,8,1,9,3,7,4,2,5,6,4,9,7,5,8,6,1,3,2,5,8,3,9,1,2,7,6,4,1,2,6,4,3,7,5,9,8];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual(expectedSolvedState);
+    });
+
+    test("Solution to be returned when found for medium puzzle", () => {
+        let state = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4,0,1,0,0,0,0,0,4,0,0,0,0,0,0,9,3,8,0,0,0,1,4,7,8,0,3,0,0,0,6,5,0,7,5,0,0,8,0,0,0,0,0,0,0,9,5,0,0,3,8];
+        let expectedSolvedState = [2,7,9,5,4,8,3,6,1,4,6,1,7,2,3,9,8,5,3,8,5,6,1,9,4,7,2,5,2,7,4,3,1,8,9,6,6,1,4,8,9,7,5,2,3,9,3,8,2,6,5,1,4,7,8,9,3,1,7,2,6,5,4,7,5,6,3,8,4,2,1,9,1,4,2,9,5,6,7,3,8];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual(expectedSolvedState);
+    });
+
+    test("Solution to be returned when found for hard puzzle", () => {
+        let state = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
+        let expectedSolvedState = [1,3,2,5,8,6,7,4,9,5,9,8,4,3,7,6,1,2,7,6,4,9,1,2,3,5,8,9,1,5,2,4,3,8,6,7,4,2,7,8,6,5,1,9,3,6,8,3,7,9,1,5,2,4,8,7,1,6,2,9,4,3,5,2,5,6,3,7,4,9,8,1,3,4,9,1,5,8,2,7,6];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual(expectedSolvedState);
+    });
+
+    test("Solution to be returned when found for expert puzzle", () => {
+        let state = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
+        let expectedSolvedState = [5,3,1,6,7,2,9,4,8,6,4,9,8,3,1,2,7,5,8,2,7,5,4,9,6,3,1,4,9,6,1,5,7,8,2,3,2,1,8,3,9,6,7,5,4,7,5,3,2,8,4,1,6,9,1,8,5,7,6,3,4,9,2,3,7,4,9,2,8,5,1,6,9,6,2,4,1,5,3,8,7];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual(expectedSolvedState);
+    });
+
+    test("Solution to be returned when found for evil puzzle", () => {
+        let state = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
+        let expectedSolvedState = [5,9,6,4,3,2,8,1,7,1,4,2,7,5,8,3,9,6,3,7,8,1,6,9,4,5,2,4,6,5,8,9,1,2,7,3,7,2,9,6,4,3,1,8,5,8,1,3,2,7,5,6,4,9,6,5,7,3,1,4,9,2,8,2,3,1,9,8,7,5,6,4,9,8,4,5,2,6,7,3,1];
+        let result = SudokuSolver.solve(state);
+        expect(result.state).toStrictEqual(expectedSolvedState);
+    });
 });

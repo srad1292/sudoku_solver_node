@@ -13,7 +13,7 @@ let mediumState = [0,0,0,0,4,0,0,6,0,4,0,0,7,0,0,9,8,0,0,8,5,0,1,0,4,0,2,0,0,7,4
 // Hard Sudoku
 let hardState = [1,0,0,5,0,0,7,0,9,0,0,8,0,0,0,0,0,2,0,6,0,9,0,0,0,0,0,0,1,0,2,4,0,0,6,0,0,0,7,0,6,0,0,0,0,6,0,0,0,9,1,0,0,0,0,0,0,6,0,9,4,3,0,0,0,0,0,7,4,0,8,1,0,0,0,0,0,0,0,0,0];
 // Expert Sudoku
-let expectState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
+let expertState = [5,3,0,0,0,0,0,0,8,0,0,9,0,0,1,0,0,0,0,0,0,0,4,9,0,0,0,4,9,6,0,0,0,8,2,3,0,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,6,0,1,0,0,7,0,0,4,0,0,0,0,0,0,2,0,5,0,0,0,6,2,0,0,0,0,0,0];
 // Evil Sudoku
 let evilState = [0,9,6,4,0,2,0,0,7,1,0,0,0,0,0,0,9,0,3,0,0,0,6,0,0,0,0,0,0,0,8,0,0,0,0,3,0,2,9,0,4,0,0,8,0,0,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,0,0,0,8,4,0,2,0,0,3,0];
 
@@ -134,7 +134,6 @@ const SudokuSolver = {
         let foundIdx = -1;
         for(rowIter; rowIter < endOfRow; rowIter++) {
             foundIdx = possible[rowIter].findIndex((pv) => pv === value);
-            // console.log("Row iter: " + rowIter + " Found? " + foundIdx);
             if(foundIdx >= 0) {
                 cellsWhereSeen.push(rowIter);
                 possible[rowIter].splice(foundIdx, 1);
@@ -394,9 +393,5 @@ const SudokuSolver = {
     },
 };
 
-
-// let testState = [4,8,9,0,0,5,0,0,0,7,0,2,0,4,6,8,3,0,0,0,6,0,0,0,0,4,9,8,7,3,0,6,0,0,0,5,0,2,0,0,8,1,0,6,3,1,0,5,4,7,0,9,0,8,0,0,0,0,0,0,0,8,0,0,3,0,6,0,0,1,5,7,0,0,0,8,1,0,0,0,6];
-// console.log(SudokuSolver.buildPossibleValues(startingState));
-// SudokuSolver.solveAndPrint(startingState);
 
 module.exports = SudokuSolver;
