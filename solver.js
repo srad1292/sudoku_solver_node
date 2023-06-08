@@ -87,6 +87,12 @@ const SudokuSolver = {
         if(index >= state.length) {
             return solution;
         }
+
+        // NOTE: Originally just had if block with state[index] !== 0 condition and no else if
+        // Last bug I fixed was here
+        // Tests failing with returned solutions missing tons of values
+        // What happened was it would come back from a later failure, come here and then end
+        // But I needed to still continue
         if(state[index] !== 0 && (solution.length <= index || solution[index] === 0)) { 
             solution.push(state[index]);
             return SudokuSolver.takeStep(index+1,state,possible,solution);
@@ -101,6 +107,9 @@ const SudokuSolver = {
             // Go through possible values
             // If possible values is empty, this is not the solution
             // Set solution index to current possible value
+            // NOTE: I originally missed the solution.length <= index condition
+            // This lead to solution being pushed too every time we also revisited a square
+            // after a later failure occured where this square then also wouldn't work
             if(pvIdx === 0 && solution.length <= index) {
                 SudokuSolver.pushedToStateCount+=1;
                 solution.push(possibleForIndex[pvIdx]);
@@ -108,6 +117,9 @@ const SudokuSolver = {
                 solution[index] = possibleForIndex[pvIdx];
             }
             // Remove value from all other possible in row/column/square -> cache these
+            // By caching what cells had this value removed from possible, I can add back in 
+            // If this value doesn't lead to a solution 
+            // This saves me from needing to duplicate the possible array of arrays at each step
             let cellsWherePossibleRemoved = SudokuSolver.findAndRemoveFromPossible(index,possibleForIndex[pvIdx], possible);
             SudokuSolver.takeStep(index+1,state,possible,solution);
             if(solution.length === state.length) {
@@ -132,6 +144,8 @@ const SudokuSolver = {
         let colIter = index%9;
         
         let foundIdx = -1;
+        // NOTE: originally accidentally wrote rowIter<9 so any row other than the top one 
+        // wouldn't even get checked because row iter started at at least 9
         for(rowIter; rowIter < endOfRow; rowIter++) {
             foundIdx = possible[rowIter].findIndex((pv) => pv === value);
             if(foundIdx >= 0) {
@@ -140,6 +154,7 @@ const SudokuSolver = {
             }
         }
 
+        // NOTE: Originally only did colIter++ and ended up checking every cell after starting column cell instead of just each in the column
         for(colIter; colIter < 81; colIter+=9) {
             foundIdx = possible[colIter].findIndex((pv) => pv === value);
             if(foundIdx >= 0) {
@@ -170,6 +185,11 @@ const SudokuSolver = {
 
     },
     checkSolved: (state, solution) => {
+        // NOTE: 
+        // - Original state not changed -> This is one of those things that should never even happen, but it's easy enough to check and verify
+        // - Solution length === state length
+        // - No cell is empty(0)
+        // - No collisions found in any rows/columns/squares
         let matchesOriginalState = state.length === solution.length;
         if(matchesOriginalState === false) { return false; }
         let hasEmptyCell = false;
